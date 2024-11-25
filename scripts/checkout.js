@@ -8,13 +8,19 @@ import { loadCart } from "../data/cart.js";
 // import '../data/backend-practice.js';
 
 async function loadPage() {
-  await loadProductsFetch();
-
-  await new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
+  try {
+    // throw 'khatarnak error'
+    await loadProductsFetch();
+  
+    const value = await new Promise((resolve) => {
+      loadCart(() => {
+        resolve();
+      });
     });
-  });
+
+  }catch(error){
+    console.log('Unexpected Error')
+  }
 
   renderOrderSummary();
   renderPaymentSummary();
